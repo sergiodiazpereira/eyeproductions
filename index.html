@@ -236,6 +236,14 @@ body.stuck .wm-mini .nm{opacity:1}
 .foot .soc a:hover,.foot .soc a:focus-visible{background:#fff;color:var(--ink)}
 .foot>.wrap>p:not(.wmf){margin-top:26px;max-width:46em;font:400 15px/1.6 var(--f-body)}
 
+/* superpoderes */
+.pw{margin-top:clamp(56px,7vw,96px)}
+.plead{margin-top:12px;color:var(--soft);max-width:60ch}
+.pgrid{display:grid;gap:clamp(32px,4vw,52px);margin-top:28px}
+.pcard h4{font:800 clamp(22px,2.6vw,28px)/1 var(--f-display);text-transform:uppercase;color:var(--hi);margin-bottom:14px}
+.pshots{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media(max-width:560px){.pshots{grid-template-columns:1fr}}
+.pshots .shot img{border:1px solid var(--rule)}
 /* lightbox */
 .lb{border:0;padding:0;background:transparent;color:#f3f3f3;max-width:none;max-height:none;width:100vw;height:100vh;height:100dvh}
 .lb::backdrop{background:rgba(6,6,8,.94)}
@@ -403,6 +411,29 @@ body.stuck .wm-mini .nm{opacity:1}
           </ul>
         </div>
       </div>
+
+      <!--PW-->
+      <div class="pw" id="superpoderes">
+        <h3>Superpoderes</h3>
+        <p class="plead">Cada jugador elige un único poder. Aquí están las cartillas de los poderes que ya están listos.</p>
+        <div class="pgrid">
+        <article class="pcard">
+          <h4>Pyrokinetic</h4>
+          <div class="pshots">
+            <button type="button" class="shot" data-src="img/supers/poderes/pyrokinetic-1.webp" data-cap="Pyrokinetic: pasiva y recetas"><img src="img/supers/poderes/pyrokinetic-1.webp" width="1920" height="1080" alt="Pyrokinetic: pasiva y recetas" loading="lazy" decoding="async"><span>Pasiva y recetas</span></button>
+            <button type="button" class="shot" data-src="img/supers/poderes/pyrokinetic-2.webp" data-cap="Pyrokinetic: habilidades"><img src="img/supers/poderes/pyrokinetic-2.webp" width="1920" height="1080" alt="Pyrokinetic: habilidades" loading="lazy" decoding="async"><span>Habilidades</span></button>
+          </div>
+        </article>
+        <article class="pcard">
+          <h4>Reaper</h4>
+          <div class="pshots">
+            <button type="button" class="shot" data-src="img/supers/poderes/reaper-1.webp" data-cap="Reaper: pasiva y recetas"><img src="img/supers/poderes/reaper-1.webp" width="1920" height="1080" alt="Reaper: pasiva y recetas" loading="lazy" decoding="async"><span>Pasiva y recetas</span></button>
+            <button type="button" class="shot" data-src="img/supers/poderes/reaper-2.webp" data-cap="Reaper: habilidades"><img src="img/supers/poderes/reaper-2.webp" width="1920" height="1080" alt="Reaper: habilidades" loading="lazy" decoding="async"><span>Habilidades</span></button>
+          </div>
+        </article>
+        </div>
+      </div>
+<!--/PW-->
     </div>
   </div>
 </section>
