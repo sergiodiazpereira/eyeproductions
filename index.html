@@ -237,13 +237,10 @@ body.stuck .wm-mini .nm{opacity:1}
 .foot>.wrap>p:not(.wmf){margin-top:26px;max-width:46em;font:400 15px/1.6 var(--f-body)}
 
 /* superpoderes */
-.pw{margin-top:clamp(56px,7vw,96px)}
-.plead{margin-top:12px;color:var(--soft);max-width:60ch}
-.pgrid{display:grid;gap:clamp(32px,4vw,52px);margin-top:28px}
-.pcard h4{font:800 clamp(22px,2.6vw,28px)/1 var(--f-display);text-transform:uppercase;color:var(--hi);margin-bottom:14px}
-.pshots{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-@media(max-width:560px){.pshots{grid-template-columns:1fr}}
-.pshots .shot img{border:1px solid var(--rule)}
+.pw{margin-top:clamp(40px,5vw,64px)}
+.pwbtn{display:inline-flex;align-items:center;gap:16px;padding:18px 28px;border:2px solid var(--hi);background:var(--tint);color:var(--fg);font:800 clamp(22px,2.6vw,28px)/1 var(--f-display);text-transform:uppercase;letter-spacing:.02em;cursor:pointer}
+.pwbtn span{font:600 15px/1 var(--f-body);text-transform:none;letter-spacing:0;color:var(--soft)}
+.pwbtn:hover{background:var(--hi);color:#110c2b}.pwbtn:hover span{color:#110c2b}
 /* lightbox */
 .lb{border:0;padding:0;background:transparent;color:#f3f3f3;max-width:none;max-height:none;width:100vw;height:100vh;height:100dvh}
 .lb::backdrop{background:rgba(6,6,8,.94)}
@@ -414,25 +411,31 @@ body.stuck .wm-mini .nm{opacity:1}
 
       <!--PW-->
       <div class="pw" id="superpoderes">
-        <h3>Superpoderes</h3>
-        <p class="plead">Cada jugador elige un único poder. Aquí están las cartillas de los poderes que ya están listos.</p>
-        <div class="pgrid">
-        <article class="pcard">
-          <h4>Pyrokinetic</h4>
-          <div class="pshots">
-            <button type="button" class="shot" data-src="img/supers/poderes/pyrokinetic-1.webp" data-cap="Pyrokinetic: pasiva y recetas"><img src="img/supers/poderes/pyrokinetic-1.webp" width="1920" height="1080" alt="Pyrokinetic: pasiva y recetas" loading="lazy" decoding="async"><span>Pasiva y recetas</span></button>
-            <button type="button" class="shot" data-src="img/supers/poderes/pyrokinetic-2.webp" data-cap="Pyrokinetic: habilidades"><img src="img/supers/poderes/pyrokinetic-2.webp" width="1920" height="1080" alt="Pyrokinetic: habilidades" loading="lazy" decoding="async"><span>Habilidades</span></button>
-          </div>
-        </article>
-        <article class="pcard">
-          <h4>Reaper</h4>
-          <div class="pshots">
-            <button type="button" class="shot" data-src="img/supers/poderes/reaper-1.webp" data-cap="Reaper: pasiva y recetas"><img src="img/supers/poderes/reaper-1.webp" width="1920" height="1080" alt="Reaper: pasiva y recetas" loading="lazy" decoding="async"><span>Pasiva y recetas</span></button>
-            <button type="button" class="shot" data-src="img/supers/poderes/reaper-2.webp" data-cap="Reaper: habilidades"><img src="img/supers/poderes/reaper-2.webp" width="1920" height="1080" alt="Reaper: habilidades" loading="lazy" decoding="async"><span>Habilidades</span></button>
-          </div>
-        </article>
-        </div>
+        <button type="button" class="pwbtn" id="pw-open" aria-haspopup="dialog">Superpoderes<span>2 poderes</span></button>
       </div>
+      <dialog class="lb" id="pwc" aria-label="Superpoderes">
+        <div class="stagebox"><img id="pwc-img" alt=""></div>
+        <div class="row">
+          <span id="pwc-cap"></span>
+          <div><button type="button" id="pwc-prev">Anterior</button><button type="button" id="pwc-next">Siguiente</button><button type="button" id="pwc-x">Cerrar</button></div>
+        </div>
+      </dialog>
+      <script>
+(function(){
+const S=[{"src": "img/supers/poderes/pyrokinetic-1.webp", "cap": "Pyrokinetic: pasiva y recetas", "p": "Pyrokinetic"}, {"src": "img/supers/poderes/pyrokinetic-2.webp", "cap": "Pyrokinetic: habilidades", "p": "Pyrokinetic"}, {"src": "img/supers/poderes/reaper-1.webp", "cap": "Reaper: pasiva y recetas", "p": "Reaper"}, {"src": "img/supers/poderes/reaper-2.webp", "cap": "Reaper: habilidades", "p": "Reaper"}];
+const d=document.getElementById('pwc'),im=document.getElementById('pwc-img'),cp=document.getElementById('pwc-cap');let c=0;
+function go(i){c=(i+S.length)%S.length;im.src=S[c].src;im.alt=S[c].cap;cp.textContent=S[c].cap+'  ('+(c+1)+' / '+S.length+')';}
+function open_(i){go(i);if(!d.open){if(d.showModal)d.showModal();else d.setAttribute('open','');}}
+document.getElementById('pw-open').addEventListener('click',()=>open_(0));
+document.getElementById('pwc-prev').addEventListener('click',()=>go(c-1));
+document.getElementById('pwc-next').addEventListener('click',()=>go(c+1));
+document.getElementById('pwc-x').addEventListener('click',()=>d.close());
+d.addEventListener('click',e=>{if(e.target===d||e.target.classList.contains('stagebox'))d.close();});
+d.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(c-1);else if(e.key==='ArrowRight')go(c+1);});
+let x0=null;d.addEventListener('touchstart',e=>{x0=e.touches[0].clientX},{passive:true});
+d.addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>50)go(c+(dx<0?1:-1));x0=null;});
+})();
+      </script>
 <!--/PW-->
     </div>
   </div>
